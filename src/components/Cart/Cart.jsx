@@ -1,11 +1,10 @@
-import React from "react";
-import "./Cart.scss";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
-import { useSelector } from "react-redux";
-import { removeItem, resetCart } from "../../redux/cartReducer";
-import { useDispatch } from "react-redux";
-import { makeRequest } from "../../makeRequest";
 import { loadStripe } from "@stripe/stripe-js";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { makeRequest } from "../../makeRequest";
+import { removeItem, resetCart } from "../../redux/cartReducer";
+import "./Cart.scss";
 
 const Cart = () => {
   const products = useSelector((state) => state.cart.products);
@@ -31,7 +30,6 @@ const Cart = () => {
       await stripe.redirectToCheckout({
         sessionId: res.data.stripeSession.id,
       });
-
     } catch (err) {
       console.log(err);
     }
@@ -41,7 +39,7 @@ const Cart = () => {
       <h1>Products in your cart</h1>
       {products?.map((item) => (
         <div className="item" key={item.id}>
-          <img src={process.env.REACT_APP_UPLOAD_URL + item.img} alt="" />
+          <img src={item.img} alt="" />
           <div className="details">
             <h1>{item.title}</h1>
             <p>{item.desc?.substring(0, 100)}</p>

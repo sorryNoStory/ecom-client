@@ -1,25 +1,21 @@
 import React from "react";
-import "./Card.scss";
 import { Link } from "react-router-dom";
+import "./Card.scss";
 
 const Card = ({ item }) => {
-  console.log(item);
+  console.log("Naim: ", item);
   return (
     <Link className="link" to={`/product/${item.id}`}>
       <div className="card">
         <div className="image">
           {item?.attributes.isNew && <span>New Season</span>}
           <img
-            src={
-              process.env.REACT_APP_UPLOAD_URL + item.attributes?.img?.data?.attributes?.url
-            }
+            src={item.attributes?.img?.data?.attributes?.url}
             alt=""
             className="mainImg"
           />
           <img
-            src={
-              process.env.REACT_APP_UPLOAD_URL + item.attributes?.img2?.data?.attributes?.url
-            }
+            src={item.attributes?.img2?.data?.attributes?.url}
             alt=""
             className="secondImg"
           />

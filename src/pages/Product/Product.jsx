@@ -1,11 +1,10 @@
-import React from "react";
-import { useState } from "react";
-import "./Product.scss";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import useFetch from "../../hooks/useFetch";
-import { useParams } from "react-router-dom";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
+import useFetch from "../../hooks/useFetch";
 import { addToCart } from "../../redux/cartReducer";
+import "./Product.scss";
 
 const Product = () => {
   const id = useParams().id;
@@ -14,6 +13,8 @@ const Product = () => {
 
   const dispatch = useDispatch();
   const { data, loading, error } = useFetch(`/products/${id}?populate=*`);
+
+  console.log('Cart: ', data)
 
   return (
     <div className="product">
@@ -24,28 +25,19 @@ const Product = () => {
           <div className="left">
             <div className="images">
               <img
-                src={
-                  process.env.REACT_APP_UPLOAD_URL +
-                  data?.attributes?.img?.data?.attributes?.url
-                }
+                src={data?.attributes?.img?.data?.attributes?.url}
                 alt=""
                 onClick={(e) => setSelectedImg("img")}
               />
               <img
-                src={
-                  process.env.REACT_APP_UPLOAD_URL +
-                  data?.attributes?.img2?.data?.attributes?.url
-                }
+                src={data?.attributes?.img2?.data?.attributes?.url}
                 alt=""
                 onClick={(e) => setSelectedImg("img2")}
               />
             </div>
             <div className="mainImg">
               <img
-                src={
-                  process.env.REACT_APP_UPLOAD_URL +
-                  data?.attributes[selectedImg]?.data?.attributes?.url
-                }
+                src={data?.attributes[selectedImg]?.data?.attributes?.url}
                 alt=""
               />
             </div>
@@ -70,11 +62,11 @@ const Product = () => {
               onClick={() =>
                 dispatch(
                   addToCart({
-                    id: data.id,
-                    title: data.attributes.title,
-                    desc: data.attributes.desc,
-                    price: data.attributes.price,
-                    img: data.attributes.img.data.attributes.url,
+                    id: data?.id,
+                    title: data?.attributes?.title,
+                    desc: data?.attributes?.desc,
+                    price: data?.attributes?.price,
+                    img:  data?.attributes?.img?.data?.attributes?.url,
                     quantity,
                   })
                 )
@@ -82,8 +74,7 @@ const Product = () => {
             >
               <AddShoppingCartIcon /> ADD TO CART
             </button>
-            <div className="links">
-            </div>
+            <div className="links"></div>
             <div className="info">
               <span>Vendor: Polo</span>
               <span>Product Type: T-Shirt</span>
