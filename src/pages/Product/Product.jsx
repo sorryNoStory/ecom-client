@@ -62,11 +62,11 @@ const Product = () => {
               onClick={() =>
                 dispatch(
                   addToCart({
-                    id: data?.id,
-                    title: data?.attributes?.title,
-                    desc: data?.attributes?.desc,
-                    price: data?.attributes?.price,
-                    img:  data?.attributes?.img?.data?.attributes?.url,
+                    id: data.id,
+                    title: data.attributes?.title,
+                    desc: data.attributes?.desc,
+                    price: data.attributes?.price,
+                    img:  data.attributes?.img?.data?.attributes?.url,
                     quantity,
                   })
                 )
